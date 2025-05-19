@@ -1,19 +1,25 @@
-import Container from "./shared/Container";
-import SocialIcons from "./shared/SocialIcons";
-import Image from "next/image";
-import { Clock } from "lucide-react";
+import Container from './shared/Container';
+import SocialIcons from './shared/SocialIcons';
+import Image from 'next/image';
+import { Clock } from 'lucide-react';
 
 export default function Footer() {
+  const links = [
+    { label: 'Home', href: '#' },
+    { label: 'About', href: '#' },
+    { label: 'Projects', href: '#' },
+    { label: 'Contact', href: '#' },
+  ];
   return (
-    <footer className="bg-gray-900 text-white py-10">
-      <Container>
+    <footer className="bg-gray-900 text-white py-4 ">
+      <Container className="border-t border-gray-600">
         <div className="flex flex-col sm:flex-row sm:justify-between  gap-6 items-center">
           <div className="flex flex-col items-center sm:items-start">
             <a href="/">
               <Image
                 src="/images/logo.png"
                 alt="Peak Renovations Logo"
-                width={150}
+                width={100}
                 height={40}
               />
             </a>
@@ -34,16 +40,17 @@ export default function Footer() {
             </div>
           </div>
 
-          <nav className="flex  items-center md:gap-6 gap-2  text-md md:text-xl">
-            <a href="#services" className="hover:underline">
-              Services
-            </a>
-            <a href="#about" className="hover:underline">
-              About
-            </a>
-            <a href="#contact" className="hover:underline">
-              Contact
-            </a>
+          <nav className=" items-center space-x-6 text-base flex">
+            {links.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className="group relative text-gray-400 transition-colors text-md xl:text-xl "
+              >
+                {link.label}
+                <span className="underline-hover " />
+              </a>
+            ))}
           </nav>
 
           <div className="">

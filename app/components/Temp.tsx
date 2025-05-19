@@ -17,13 +17,13 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 z-50 w-full shadow-md bg-gray-900">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between border-b border-yellow-200">
+      <header className="fixed top-0 left-0 z-50 w-full  shadow-md  bg-gray-900">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between  border-b border-yellow-200">
           <a href="/">
             <Image
               src="/images/logo.png"
               alt="Peak Renovations Logo"
-              width={80}
+              width={100}
               height={40}
             />
           </a>
@@ -33,10 +33,10 @@ export default function Navbar() {
               <a
                 key={link.label}
                 href={link.href}
-                className="group relative text-gray-400 transition-colors text-md xl:text-xl "
+                className="group relative text-gray-700 transition-colors text-xl"
               >
                 {link.label}
-                <span className="underline-hover " />
+                <span className="underline-hover" />
               </a>
             ))}
           </nav>
@@ -55,7 +55,7 @@ export default function Navbar() {
       {/* Animated Mobile Menu */}
       <div
         className={clsx(
-          'fixed inset-0 z-40 flex flex-col items-center justify-center bg-gray-900 text-yellow-300 transition-all duration-300 md:hidden',
+          'fixed inset-0 z-40 flex flex-col items-center justify-center bg-gray-900 text-white transition-all duration-300 md:hidden',
           {
             'pointer-events-auto translate-y-0 opacity-100': isOpen,
             'pointer-events-none -translate-y-10 opacity-0': !isOpen,
@@ -68,7 +68,7 @@ export default function Navbar() {
               key={link.label}
               href={link.href}
               onClick={() => setIsOpen(false)}
-              className="group relative text-gray-400  transition-colors"
+              className="group relative text-white underline-hover"
             >
               {link.label}
               <span className="underline-hover" />

@@ -1,8 +1,8 @@
-import { Facebook, Instagram, Mail, Phone, Send } from "lucide-react";
+import { Facebook, Instagram, Mail, Phone, Send } from 'lucide-react';
 
 export default function SocialIcons() {
   return (
-    <div className="flex space-x-4 sm:space-x-3 md:space-x-6">
+    <div className="flex space-x-3 sm:space-x-3 md:space-x-6">
       <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
         <Facebook className="w-6 h-6 text-gray-600 hover:text-blue-600 transition hover:scale-120" />
       </a>
