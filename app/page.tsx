@@ -1,3 +1,8 @@
 export default function Home() {
-  return <h1>Peak renovations</h1>;
+  return (
+    <main>
+      <h1>Welcome to Peak Renovations PDX</h1>
+      {/* Ваш основной контент */}
+    </main>
+  );
 }

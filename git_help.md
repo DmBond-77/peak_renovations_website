@@ -4,7 +4,6 @@
 
 ```bash
 git count-objects -vH
-
 ```
 
 Показатель size-pack покажет реальный размер хранилища Git.
