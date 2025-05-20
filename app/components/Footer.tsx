@@ -1,18 +1,18 @@
-import Container from './shared/Container';
-import SocialIcons from './shared/SocialIcons';
-import Image from 'next/image';
-import { Clock } from 'lucide-react';
+import Container from "./shared/Container";
+import SocialIcons from "./shared/SocialIcons";
+import Image from "next/image";
+import { Clock } from "lucide-react";
 
 export default function Footer() {
   const links = [
-    { label: 'Home', href: '#' },
-    { label: 'About', href: '#' },
-    { label: 'Projects', href: '#' },
-    { label: 'Contact', href: '#' },
+    { label: "Home", href: "#" },
+    { label: "About", href: "#" },
+    { label: "Projects", href: "#" },
+    { label: "Contact", href: "#" },
   ];
   return (
-    <footer className="bg-gray-900 text-white py-4 ">
-      <Container className="border-t border-gray-600">
+    <footer className="bg-gray-900 text-white py-4 border-t border-yellow-600">
+      <Container className="">
         <div className="flex flex-col sm:flex-row sm:justify-between  gap-6 items-center">
           <div className="flex flex-col items-center sm:items-start">
             <a href="/">
@@ -48,7 +48,7 @@ export default function Footer() {
                 className="group relative text-gray-400 transition-colors text-md xl:text-xl "
               >
                 {link.label}
-                <span className="underline-hover " />
+                <span className="underline-hover" />
               </a>
             ))}
           </nav>

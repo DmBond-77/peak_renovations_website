@@ -1,24 +1,24 @@
-'use client';
-import { useState } from 'react';
-import { Menu, X } from 'lucide-react';
-import clsx from 'clsx';
-import Image from 'next/image';
-import SocialIcons from './shared/SocialIcons';
+"use client";
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
+import clsx from "clsx";
+import Image from "next/image";
+import SocialIcons from "./shared/SocialIcons";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   const links = [
-    { label: 'Home', href: '#' },
-    { label: 'About', href: '#' },
-    { label: 'Projects', href: '#' },
-    { label: 'Contact', href: '#' },
+    { label: "Home", href: "#" },
+    { label: "About", href: "#" },
+    { label: "Projects", href: "#" },
+    { label: "Contact", href: "#" },
   ];
 
   return (
     <>
-      <header className="fixed top-0 left-0 z-50 w-full shadow-md bg-gray-900">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between border-b border-yellow-200">
+      <header className="fixed top-0 left-0 z-50 w-full shadow-md bg-gray-900 border-b border-yellow-200">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between ">
           <a href="/">
             <Image
               src="/images/logo.png"
@@ -55,10 +55,10 @@ export default function Navbar() {
       {/* Animated Mobile Menu */}
       <div
         className={clsx(
-          'fixed inset-0 z-40 flex flex-col items-center justify-center bg-gray-900 text-yellow-300 transition-all duration-300 md:hidden',
+          "fixed inset-0 z-40 flex flex-col items-center justify-center bg-gray-900 text-yellow-300 transition-all duration-300 md:hidden",
           {
-            'pointer-events-auto translate-y-0 opacity-100': isOpen,
-            'pointer-events-none -translate-y-10 opacity-0': !isOpen,
+            "pointer-events-auto translate-y-0 opacity-100": isOpen,
+            "pointer-events-none -translate-y-10 opacity-0": !isOpen,
           }
         )}
       >
