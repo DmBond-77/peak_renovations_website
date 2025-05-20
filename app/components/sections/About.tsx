@@ -5,12 +5,12 @@ import Link from "next/link";
 
 export default function About() {
   return (
-    <section className="bg-white py-16 px-6 md:px-10">
+    <section className="bg-white py-16 px-6 md:px-10" id="about">
       <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center">
         {/* Image */}
         <div className="relative w-full h-64 md:h-96">
           <Image
-            src="/images/owner.jpg" // Убедись, что картинка есть в public/images/
+            src="/images/owner.jpg"
             alt="Our team at work"
             fill
             className="object-cover rounded-xl shadow-lg"
@@ -21,8 +21,12 @@ export default function About() {
         {/* Text */}
         <div>
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Get to Know Us
+            Why Choose Peak Renovations PDX?
           </h2>
+          <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+            Portland homeowners trust us for top-quality, reliable renovation
+            services tailored to their future.
+          </p>
           <p className="text-lg text-gray-700 mb-6 leading-relaxed">
             At Peak Renovations, we bring years of expertise to every project—
             from residential remodels to commercial upgrades. Our team is

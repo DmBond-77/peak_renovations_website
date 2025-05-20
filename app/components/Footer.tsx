@@ -5,10 +5,10 @@ import { Clock } from "lucide-react";
 
 export default function Footer() {
   const links = [
-    { label: "Home", href: "#" },
-    { label: "About", href: "#" },
-    { label: "Projects", href: "#" },
-    { label: "Contact", href: "#" },
+    { label: "Home", href: "/" },
+    { label: "About", href: "#about" },
+    { label: "Projects", href: "#work" },
+    { label: "Contact", href: "#contact" },
   ];
   return (
     <footer className="bg-gray-900 text-white py-4 border-t border-yellow-600">

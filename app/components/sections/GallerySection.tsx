@@ -35,7 +35,7 @@ export default function GallerySection() {
   };
 
   return (
-    <section className="bg-gray-100 py-12 px-4">
+    <section className="bg-gray-100 py-12 px-4" id="work">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
           Our Work
