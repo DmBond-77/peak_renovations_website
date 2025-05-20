@@ -5,6 +5,7 @@ import GallerySection from "./components/sections/GallerySection";
 import WhyRenovate from "./components/sections/WhyRenovate";
 import InspirationQuote from "./components/sections/InspirationQuote";
 import Testimonials from "./components/sections/Testimonials";
+import ServicesTabsAccordion from "./components/sections/ServicesTabsAccordion";
 export default function Home() {
   return (
     <>
@@ -12,6 +13,7 @@ export default function Home() {
       <GallerySection />
       <InspirationQuote />
       <WhyRenovate />
+      <ServicesTabsAccordion />
       <Testimonials />
       <About />
       <ContactSection />

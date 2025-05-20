@@ -9,12 +9,13 @@ export default function Footer() {
     { label: "About", href: "#about" },
     { label: "Projects", href: "#work" },
     { label: "Contact", href: "#contact" },
+    { label: "Services", href: "#services" },
   ];
   return (
     <footer className="bg-gray-900 text-white py-4 border-t border-yellow-600">
       <Container className="">
-        <div className="flex flex-col sm:flex-row sm:justify-between  gap-6 items-center">
-          <div className="flex flex-col items-center sm:items-start">
+        <div className="flex flex-col md:flex-row sm:justify-between  gap-6 items-center">
+          <div className="flex flex-col items-center md:items-start">
             <a href="/">
               <Image
                 src="/images/logo.png"
@@ -23,7 +24,7 @@ export default function Footer() {
                 height={40}
               />
             </a>
-            <p className="text-sm text-gray-400 mt-2">Portland, Oregon</p>
+            <p className="text-sm text-gray-400">Portland, Oregon</p>
             <p className="text-sm text-gray-400">Oregon CCB #123456</p>
             <div className="text-sm text-gray-400 mt-4">
               <div className="flex gap-2 items-center ">
@@ -57,7 +58,7 @@ export default function Footer() {
             <SocialIcons />
           </div>
         </div>
-        <p className="text-xs text-gray-500 mt-8 text-center sm:text-left">
+        <p className="text-xs text-gray-500 mt-8 text-center md:text-left">
           © {new Date().getFullYear()} Peak Renovations PDX. All rights
           reserved.
         </p>
