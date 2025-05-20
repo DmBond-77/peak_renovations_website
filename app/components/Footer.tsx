@@ -14,8 +14,8 @@ export default function Footer() {
   return (
     <footer className="bg-gray-900 text-white py-4 border-t border-yellow-600">
       <Container className="">
-        <div className="flex flex-col md:flex-row sm:justify-between  gap-6 items-center">
-          <div className="flex flex-col items-center md:items-start">
+        <div className="flex flex-col xl:flex-row sm:justify-between  gap-6 items-center">
+          <div className="flex flex-col items-center xl:items-start">
             <a href="/">
               <Image
                 src="/images/logo.png"
@@ -24,19 +24,17 @@ export default function Footer() {
                 height={40}
               />
             </a>
-            <p className="text-sm text-gray-400">Portland, Oregon</p>
-            <p className="text-sm text-gray-400">Oregon CCB #123456</p>
+            <p className=" text-gray-400">Portland, Oregon</p>
+            <p className=" text-gray-400">Oregon CCB #123456</p>
             <div className="text-sm text-gray-400 mt-4">
               <div className="flex gap-2 items-center ">
-                <Clock className="w-4 h-4 mt-0.5 text-gray-400 sm:hidden xl:block" />
-                <p className="text-[12px] xl:text-sm">Hours: Mon–Fri 9AM–5PM</p>
+                <Clock className="w-4 h-4 mt-0.5 text-gray-400  xl:block" />
+                <p className="">Hours: Mon–Fri 9AM–5PM</p>
               </div>
 
               <div className="flex gap-2 items-center">
-                <Clock className="w-4 h-4 mt-0.5 text-gray-400 sm:hidden xl:block" />
-                <p className="text-[12px] xl:text-sm">
-                  Saturday | Sunday Closed
-                </p>
+                <Clock className="w-4 h-4 mt-0.5 text-gray-400  xl:block" />
+                <p className="">Saturday | Sunday Closed</p>
               </div>
             </div>
           </div>
