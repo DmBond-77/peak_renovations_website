@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import clsx from "clsx";
+import { motion, AnimatePresence } from "framer-motion";
 
 const sections = [
   {
@@ -16,43 +17,37 @@ const sections = [
         <ul className="list-disc list-inside space-y-2">
           <li>
             <strong>Open Concept Kitchens:</strong> Create communal living
-            spaces by removing walls, typically between the kitchen and living
-            room, ideal for families and entertaining.
+            spaces by removing walls.
           </li>
           <li>
-            <strong>Contemporary:</strong> Combines high functionality and
-            streamlined surfaces with traditional elements for a sleek yet
-            livable feel.
+            <strong>Contemporary:</strong> Sleek and highly functional with
+            traditional elements.
           </li>
           <li>
-            <strong>Traditional:</strong> Features warm and classic elements,
-            bringing the outdoors in with patterns like fruits, flowers, and
-            butterflies.
+            <strong>Traditional:</strong> Warm, classic, nature-inspired decor.
           </li>
           <li>
-            <strong>French Country:</strong> Evokes a warm, comfortable, and
-            beautiful atmosphere, reminiscent of a traditional and simple life.
+            <strong>French Country:</strong> Cozy and rustic with traditional
+            touches.
           </li>
           <li>
-            <strong>Vintage:</strong> Offers a classic, playful, throwback look
-            for those who appreciate nostalgic designs.
+            <strong>Vintage:</strong> Playful throwback styles with charm.
           </li>
           <li>
-            <strong>Portable Kitchen Islands:</strong> Adds flexibility with
-            movable islands, allowing you to adjust your space as needed.
+            <strong>Portable Kitchen Islands:</strong> Flexible island layout
+            options.
           </li>
           <li>
-            <strong>Wall Treatments:</strong> Enhance character with wood slats
-            or designer wallpaper, adding unique textures and patterns.
+            <strong>Wall Treatments:</strong> Add texture with slats or
+            wallpaper.
           </li>
           <li>
-            <strong>Fireplace Updates:</strong> Revamp or add fireplaces using
-            tile, stacked stone, or concrete to add a cozy feel to your kitchen.
+            <strong>Fireplace Updates:</strong> Add warmth with tile or stone
+            accents.
           </li>
           <li>
-            <strong>Sturdy Countertops:</strong> Choose from granite, marble,
-            butcher block, quartz, concrete, or stainless steel to reflect your
-            lifestyle.
+            <strong>Sturdy Countertops:</strong> Choose from quartz, granite,
+            butcher block, and more.
           </li>
         </ul>
       </>
@@ -67,44 +62,47 @@ const sections = [
         </p>
         <ul className="list-disc list-inside space-y-2">
           <li>
-            <strong>Pet-Friendly Bathrooms:</strong> Incorporate pet washing
-            zones and built-in kitty litter boxes for your furry friends.
+            <strong>Pet-Friendly Bathrooms:</strong> Add pet washing zones or
+            built-in litter boxes.
           </li>
           <li>
-            <strong>Mediterranean-Inspired Design:</strong> Bring a touch of the
-            Mediterranean with warm colors and elegant fixtures.
+            <strong>Mediterranean-Inspired Design:</strong> Warm colors and
+            elegant fixtures.
           </li>
           <li>
-            <strong>Smart Storage:</strong> Utilize vertical space with
-            cabinetry that extends up the wall for practical storage solutions.
+            <strong>Smart Storage:</strong> Tall cabinetry for extra vertical
+            storage.
           </li>
           <li>
-            <strong>Classic Whites:</strong> Timeless white subway tiles paired
-            with various styles for a clean and versatile look.
+            <strong>Classic Whites:</strong> Clean and timeless subway tile
+            layouts.
           </li>
           <li>
-            <strong>Ease of Use:</strong> Features like no-threshold showers and
-            comfort-height fixtures for accessibility and convenience.
+            <strong>Ease of Use:</strong> No-threshold showers and
+            comfort-height fixtures.
           </li>
           <li>
-            <strong>Media and Music:</strong> Integrate electronics such as
-            wireless speakers and Bluetooth devices into your bathroom for
-            entertainment and relaxation.
+            <strong>Media and Music:</strong> Bluetooth speakers and media
+            built-ins.
           </li>
           <li>
-            <strong>In-Floor Heat and Towel Warmers:</strong> Add luxury and
-            comfort with heated floors and towel warmers.
+            <strong>In-Floor Heat and Towel Warmers:</strong> Add spa-level
+            comfort and luxury.
           </li>
         </ul>
       </>
     ),
   },
-  // Additional sections can be added here
+  // Add more sections as needed
 ];
 
 export default function ServicesTabsAccordion() {
   const [activeTab, setActiveTab] = useState(0);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const toggleAccordion = (index: number) => {
+    setOpenIndex((prev) => (prev === index ? null : index));
+  };
 
   return (
     <section className="bg-white py-16 px-4" id="services">
@@ -121,7 +119,7 @@ export default function ServicesTabsAccordion() {
                 key={index}
                 onClick={() => setActiveTab(index)}
                 className={clsx(
-                  "pb-2 text-gray-700 font-bold border-b-2 cursor-pointer text-xl",
+                  "pb-2 text-gray-700 font-bold border-b-2 cursor-pointer text-xl whitespace-nowrap",
                   activeTab === index
                     ? "border-gray-800 text-gray-900"
                     : "border-transparent hover:text-black"
@@ -132,8 +130,19 @@ export default function ServicesTabsAccordion() {
             ))}
           </div>
 
-          <div className="mt-4 text-gray-700 text-md xl:text-xl">
-            {sections[activeTab].content}
+          <div className="mt-4 text-gray-700 text-md xl:text-xl relative min-h-[200px]">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.3 }}
+                className="relative inset-0"
+              >
+                {sections[activeTab].content}
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
 
@@ -142,10 +151,10 @@ export default function ServicesTabsAccordion() {
           {sections.map((section, index) => {
             const isOpen = openIndex === index;
             return (
-              <div key={index} className="border rounded">
+              <div key={index} className="border rounded overflow-hidden">
                 <button
-                  onClick={() => setOpenIndex(isOpen ? null : index)}
-                  className="w-full flex justify-between items-center px-4 py-3 bg-gray-100 text-gray-800 font-medium"
+                  onClick={() => toggleAccordion(index)}
+                  className="w-full flex justify-between items-center px-4 py-3 bg-gray-100 text-gray-800 font-medium cursor-pointer"
                 >
                   {section.title}
                   {isOpen ? (
@@ -154,11 +163,20 @@ export default function ServicesTabsAccordion() {
                     <ChevronDown className="w-5 h-5" />
                   )}
                 </button>
-                {isOpen && (
-                  <div className="px-4 py-3 text-gray-700 text-sm">
-                    {section.content}
-                  </div>
-                )}
+
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.5 }}
+                      className="px-4 py-3 text-gray-700 text-sm overflow-hidden"
+                    >
+                      {section.content}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             );
           })}

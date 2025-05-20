@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 :root {
   --background: #ffffff;
@@ -19,6 +19,10 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -27,5 +31,8 @@ body {
 
 .underline-hover {
   @apply absolute -bottom-1 left-0 h-[2px] w-0 bg-yellow-300 transition-all duration-300 group-hover:w-full;
-  /* background-color: var(--link-underline-color); */
+}
+
+.underline-hover.active {
+  @apply text-yellow-300;
 }
