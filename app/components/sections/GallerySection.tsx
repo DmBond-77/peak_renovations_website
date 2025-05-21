@@ -23,6 +23,7 @@ const images = [
 export default function GallerySection() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [direction, setDirection] = useState<1 | -1>(1);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const nextImage = () => {
     if (selectedIndex === null) return;
@@ -38,12 +39,10 @@ export default function GallerySection() {
 
   useEffect(() => {
     if (selectedIndex === null) return;
-
     const interval = setInterval(() => {
       setDirection(1);
       setSelectedIndex((prev) => (prev! + 1) % images.length);
     }, 5000);
-
     return () => clearInterval(interval);
   }, [selectedIndex]);
 
@@ -63,15 +62,30 @@ export default function GallerySection() {
                 setDirection(1);
                 setSelectedIndex(i);
               }}
-              className="relative w-full aspect-[4/3] rounded overflow-hidden shadow cursor-pointer hover:scale-105 transition"
+              onMouseEnter={() => setHoveredIndex(i)}
+              onMouseLeave={() => setHoveredIndex(null)}
+              className="relative w-full aspect-[4/3] rounded overflow-hidden shadow cursor-pointer group"
             >
               <Image
                 src={src}
                 alt={`Gallery image ${i + 1}`}
                 fill
-                className="object-cover"
+                className="object-cover transition-transform duration-300 group-hover:scale-105"
                 sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
               />
+
+              {/* Hover "shutter" animation */}
+              {hoveredIndex === i && (
+                <motion.div
+                  className="absolute top-0 left-0 h-full w-1/3 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none"
+                  initial={{ x: -200 }}
+                  animate={{ x: 300 }}
+                  transition={{
+                    duration: 1.2,
+                    ease: "easeInOut",
+                  }}
+                />
+              )}
             </div>
           ))}
         </div>
