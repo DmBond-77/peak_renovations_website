@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Mail, Phone, Clock, MapPin } from "lucide-react";
 import SocialIcons from "../shared/SocialIcons";
 import { motion } from "framer-motion";
@@ -19,6 +20,8 @@ const itemVariants = {
 };
 
 export default function ContactSection() {
+  const [status, setStatus] = useState<"success" | "error" | null>(null);
+
   return (
     <section id="contact" className="bg-gray-100 py-16">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -106,21 +109,58 @@ export default function ContactSection() {
             <p className="text-gray-700 text-sm mb-4">
               Would you like to send us a message:
             </p>
-            <form className="space-y-4">
+            <form
+              onSubmit={async (e) => {
+                e.preventDefault();
+                setStatus(null);
+                const form = e.currentTarget as HTMLFormElement;
+                const formData = new FormData(form);
+
+                const data = {
+                  name: formData.get("name") as string,
+                  email: formData.get("email") as string,
+                  message: formData.get("message") as string,
+                };
+
+                try {
+                  const res = await fetch("/api/contact", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data),
+                  });
+
+                  if (res.ok) {
+                    setStatus("success");
+                    form.reset();
+                  } else {
+                    setStatus("error");
+                  }
+                } catch {
+                  setStatus("error");
+                }
+              }}
+              className="space-y-4"
+            >
               <input
+                name="name"
                 type="text"
                 placeholder="Name"
                 className="w-full border px-3 py-2 rounded"
+                required
               />
               <input
+                name="email"
                 type="email"
                 placeholder="Email"
                 className="w-full border px-3 py-2 rounded"
+                required
               />
               <textarea
+                name="message"
                 placeholder="Message"
                 rows={4}
                 className="w-full border px-3 py-2 rounded"
+                required
               />
               <button
                 type="submit"
@@ -129,6 +169,17 @@ export default function ContactSection() {
                 Send Message
               </button>
             </form>
+
+            {status === "success" && (
+              <p className="mt-4 text-green-600 font-medium">
+                ✅ Message sent successfully!
+              </p>
+            )}
+            {status === "error" && (
+              <p className="mt-4 text-red-600 font-medium">
+                ❌ Something went wrong. Please try again.
+              </p>
+            )}
           </motion.div>
         </motion.div>
       </div>
