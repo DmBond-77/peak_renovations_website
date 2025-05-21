@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const images = [
   "/images/slider1.jpg",
@@ -21,18 +22,30 @@ const images = [
 
 export default function GallerySection() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [direction, setDirection] = useState<1 | -1>(1);
 
-  // Навигация вперед
   const nextImage = () => {
     if (selectedIndex === null) return;
+    setDirection(1);
     setSelectedIndex((selectedIndex + 1) % images.length);
   };
 
-  // Навигация назад
   const prevImage = () => {
     if (selectedIndex === null) return;
+    setDirection(-1);
     setSelectedIndex((selectedIndex - 1 + images.length) % images.length);
   };
+
+  useEffect(() => {
+    if (selectedIndex === null) return;
+
+    const interval = setInterval(() => {
+      setDirection(1);
+      setSelectedIndex((prev) => (prev! + 1) % images.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [selectedIndex]);
 
   return (
     <section className="bg-gray-100 py-12 px-4" id="work">
@@ -46,7 +59,10 @@ export default function GallerySection() {
           {images.map((src, i) => (
             <div
               key={i}
-              onClick={() => setSelectedIndex(i)}
+              onClick={() => {
+                setDirection(1);
+                setSelectedIndex(i);
+              }}
               className="relative w-full aspect-[4/3] rounded overflow-hidden shadow cursor-pointer hover:scale-105 transition"
             >
               <Image
@@ -62,49 +78,90 @@ export default function GallerySection() {
       </div>
 
       {/* Modal */}
-      {selectedIndex !== null && (
-        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
-          <div className="relative max-w-[90vw] max-h-[80vh] w-full p-4 flex items-center justify-center">
-            {/* Close button */}
-            <button
+      <AnimatePresence>
+        {selectedIndex !== null && (
+          <motion.div
+            key="modal"
+            className="fixed inset-0 z-50 flex items-center justify-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            {/* Overlay */}
+            <motion.div
+              className="absolute inset-0 bg-black/80"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.6 }}
               onClick={() => setSelectedIndex(null)}
-              className="absolute top-2 right-2 text-white hover:text-red-400 z-10 cursor-pointer"
-              aria-label="Close"
-            >
-              <X className="w-8 h-8" />
-            </button>
+            />
 
-            {/* Prev button */}
-            <button
-              onClick={prevImage}
-              className="absolute left-4 text-white hover:text-gray-300 z-10"
-              aria-label="Previous image"
+            {/* Modal content */}
+            <motion.div
+              className="relative max-w-[90vw] max-h-[80vh] w-full p-4 flex items-center justify-center z-10"
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              transition={{ duration: 0.6 }}
             >
-              <ChevronLeft className="w-10 h-10 cursor-pointer" />
-            </button>
+              {/* Close button */}
+              <button
+                onClick={() => setSelectedIndex(null)}
+                className="absolute top-2 right-2 text-white hover:text-red-400 z-20 cursor-pointer"
+                aria-label="Close"
+              >
+                <X className="w-8 h-8" />
+              </button>
 
-            {/* Image container */}
-            <div className="relative max-w-full max-h-[80vh] w-full aspect-[4/3] rounded-lg overflow-hidden">
-              <Image
-                src={images[selectedIndex]}
-                alt={`Preview image ${selectedIndex + 1}`}
-                fill
-                className="object-contain"
-                sizes="90vw"
-              />
-            </div>
+              {/* Prev button */}
+              <button
+                onClick={prevImage}
+                className="absolute left-4 text-white hover:text-gray-300 z-20"
+                aria-label="Previous image"
+              >
+                <ChevronLeft className="w-10 h-10 cursor-pointer" />
+              </button>
 
-            {/* Next button */}
-            <button
-              onClick={nextImage}
-              className="absolute right-4 text-white hover:text-gray-300 z-10"
-              aria-label="Next image"
-            >
-              <ChevronRight className="w-10 h-10 cursor-pointer" />
-            </button>
-          </div>
-        </div>
-      )}
+              {/* Animated image */}
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={selectedIndex}
+                  initial={{
+                    x: direction === 1 ? 300 : -300,
+                    opacity: 0,
+                  }}
+                  animate={{ x: 0, opacity: 1 }}
+                  exit={{
+                    x: direction === 1 ? -300 : 300,
+                    opacity: 0,
+                  }}
+                  transition={{ duration: 0.4 }}
+                  className="relative max-w-full max-h-[80vh] w-full aspect-[4/3] rounded-lg overflow-hidden"
+                >
+                  <Image
+                    src={images[selectedIndex]}
+                    alt={`Preview image ${selectedIndex + 1}`}
+                    fill
+                    className="object-contain"
+                    sizes="90vw"
+                  />
+                </motion.div>
+              </AnimatePresence>
+
+              {/* Next button */}
+              <button
+                onClick={nextImage}
+                className="absolute right-4 text-white hover:text-gray-300 z-20"
+                aria-label="Next image"
+              >
+                <ChevronRight className="w-10 h-10 cursor-pointer" />
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

@@ -2,13 +2,42 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
+
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.3,
+    },
+  },
+};
+
+const imageVariants = {
+  hidden: { opacity: 0, x: -50 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" } },
+};
+
+const textVariants = {
+  hidden: { opacity: 0, x: 50 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" } },
+};
 
 export default function About() {
   return (
     <section className="bg-white py-16 px-6 md:px-10" id="about">
-      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+      <motion.div
+        className="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={containerVariants}
+      >
         {/* Image */}
-        <div className="relative w-full h-64 md:h-96">
+        <motion.div
+          className="relative w-full h-64 md:h-96"
+          variants={imageVariants}
+        >
           <Image
             src="/images/owner.jpg"
             alt="Our team at work"
@@ -16,10 +45,10 @@ export default function About() {
             className="object-cover rounded-xl shadow-lg"
             priority
           />
-        </div>
+        </motion.div>
 
         {/* Text */}
-        <div>
+        <motion.div variants={textVariants}>
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Why Choose Peak Renovations PDX?
           </h2>
@@ -45,8 +74,8 @@ export default function About() {
           >
             Request a Quote
           </Link>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

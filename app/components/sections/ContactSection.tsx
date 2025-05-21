@@ -2,23 +2,59 @@
 
 import { Mail, Phone, Clock, MapPin } from "lucide-react";
 import SocialIcons from "../shared/SocialIcons";
+import { motion } from "framer-motion";
+
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+};
 
 export default function ContactSection() {
   return (
     <section id="contact" className="bg-gray-100 py-16">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">
+        <motion.h2
+          className="text-3xl font-bold text-center mb-8 text-gray-800"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          variants={itemVariants}
+        >
           Contact Us to Request a FREE Estimate
-        </h2>
+        </motion.h2>
 
-        <h3 className="text-xl text-center mb-12 text-gray-700">
+        <motion.h3
+          className="text-xl text-center mb-12 text-gray-700"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          variants={itemVariants}
+        >
           Don’t hesitate to reach out with the contact information below, or
           send a message using the form.
-        </h3>
+        </motion.h3>
 
-        <div className="grid gap-8 md:grid-cols-2">
+        <motion.div
+          className="grid gap-8 md:grid-cols-2"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={containerVariants}
+        >
           {/* Contact Info */}
-          <div className="space-y-6 text-gray-700 text-base">
+          <motion.div
+            className="space-y-6 text-gray-700 text-base"
+            variants={itemVariants}
+          >
             <div className="flex items-start gap-3">
               <MapPin className="w-5 h-5 mt-1 text-gray-600" />
               <div>
@@ -60,10 +96,13 @@ export default function ContactSection() {
             </div>
 
             <SocialIcons />
-          </div>
+          </motion.div>
 
           {/* Contact Form */}
-          <div className="bg-white shadow-md rounded-lg p-6">
+          <motion.div
+            className="bg-white shadow-md rounded-lg p-6"
+            variants={itemVariants}
+          >
             <p className="text-gray-700 text-sm mb-4">
               Would you like to send us a message:
             </p>
@@ -90,8 +129,8 @@ export default function ContactSection() {
                 Send Message
               </button>
             </form>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

@@ -2,9 +2,10 @@
 
 import "keen-slider/keen-slider.min.css";
 import { useKeenSlider } from "keen-slider/react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const slides = [
   {
@@ -28,7 +29,10 @@ export default function HeroSlider() {
   const [sliderRef, instanceRef] = useKeenSlider({
     loop: true,
     slides: { perView: 1 },
+    detailsChanged: (s) => setCurrentSlide(s.track.details.rel),
   });
+
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -38,25 +42,57 @@ export default function HeroSlider() {
   }, [instanceRef]);
 
   return (
-    <div ref={sliderRef} className="keen-slider relative h-[80vh]">
+    <div
+      ref={sliderRef}
+      className="keen-slider relative h-[80vh] overflow-hidden"
+    >
       {slides.map((slide, i) => (
         <div
           key={i}
           className="keen-slider__slide relative bg-cover bg-center"
           style={{ backgroundImage: `url(${slide.image})` }}
         >
-          <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center text-white text-center p-6">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              {slide.title}
-            </h1>
-            <p className="mb-6 text-lg max-w-xl px-4">{slide.subtitle}</p>
-            <Link
-              href="#contact"
-              className="bg-white text-gray-900 font-semibold px-6 py-3 rounded hover:bg-gray-200 transition"
-            >
-              Request a Quote
-            </Link>
-          </div>
+          <AnimatePresence>
+            {currentSlide === i && (
+              <motion.div
+                key={i}
+                className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center text-white text-center p-6"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+              >
+                <motion.h1
+                  className="text-4xl md:text-5xl font-bold mb-4"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  {slide.title}
+                </motion.h1>
+                <motion.p
+                  className="mb-6 text-lg max-w-xl px-4"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  {slide.subtitle}
+                </motion.p>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 }}
+                >
+                  <Link
+                    href="#contact"
+                    className="bg-white text-gray-900 font-semibold px-6 py-3 rounded hover:bg-gray-200 transition"
+                  >
+                    Request a Quote
+                  </Link>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       ))}
 

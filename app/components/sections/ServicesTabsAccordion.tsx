@@ -93,7 +93,6 @@ const sections = [
       </>
     ),
   },
-  // Add more sections as needed
 ];
 
 export default function ServicesTabsAccordion() {
@@ -105,7 +104,14 @@ export default function ServicesTabsAccordion() {
   };
 
   return (
-    <section className="bg-white py-16 px-4" id="services">
+    <motion.section
+      className="bg-white py-16 px-4"
+      id="services"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      viewport={{ once: true, amount: 0.3 }}
+    >
       <div className="max-w-5xl mx-auto">
         <h2 className="text-3xl font-bold text-center mb-10 text-gray-800">
           Our Services
@@ -137,7 +143,7 @@ export default function ServicesTabsAccordion() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.3 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
                 className="relative inset-0"
               >
                 {sections[activeTab].content}
@@ -147,7 +153,7 @@ export default function ServicesTabsAccordion() {
         </div>
 
         {/* Mobile Accordion */}
-        <div className="md:hidden flex flex-col gap-4">
+        <div className="md:hidden flex flex-col gap-4 mt-4">
           {sections.map((section, index) => {
             const isOpen = openIndex === index;
             return (
@@ -170,7 +176,7 @@ export default function ServicesTabsAccordion() {
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.5 }}
+                      transition={{ duration: 0.4, ease: "easeInOut" }}
                       className="px-4 py-3 text-gray-700 text-sm overflow-hidden"
                     >
                       {section.content}
@@ -182,6 +188,6 @@ export default function ServicesTabsAccordion() {
           })}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

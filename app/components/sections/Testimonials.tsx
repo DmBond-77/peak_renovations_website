@@ -2,6 +2,7 @@
 
 import { Star } from "lucide-react";
 import Container from "../shared/Container";
+import { motion } from "framer-motion";
 
 const reviews = [
   {
@@ -36,6 +37,19 @@ const reviews = [
   },
 ];
 
+// Варианты анимации для каждого отзыва
+const cardVariants = {
+  hidden: (custom: number) => ({
+    opacity: 0,
+    x: custom % 2 === 0 ? -50 : 50, // четные с левой стороны, нечетные - с правой
+  }),
+  visible: (custom: number) => ({
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.6, ease: "easeOut", delay: custom * 0.2 },
+  }),
+};
+
 export default function Testimonials() {
   return (
     <section className="bg-gray-50 py-20 px-6 md:px-10" id="testimonials">
@@ -51,9 +65,14 @@ export default function Testimonials() {
 
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {reviews.map((review, i) => (
-            <div
+            <motion.div
               key={i}
               className="bg-white rounded-xl shadow p-6 text-left flex flex-col justify-between"
+              custom={i}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              variants={cardVariants}
             >
               <div className="mb-4">
                 <div className="flex gap-1 text-yellow-500 mb-2">
@@ -66,7 +85,7 @@ export default function Testimonials() {
               <p className="mt-4 text-sm font-semibold text-gray-900">
                 — {review.name}
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </Container>
