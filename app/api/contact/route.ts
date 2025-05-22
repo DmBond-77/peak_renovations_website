@@ -33,11 +33,12 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ success: true });
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error("Email sending error:", err);
-    return NextResponse.json(
-      { error: err.message || "Email sending failed" },
-      { status: 500 }
-    );
+
+    const errorMessage =
+      err instanceof Error ? err.message : "Email sending failed";
+
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
