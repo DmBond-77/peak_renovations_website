@@ -3,9 +3,10 @@
 import Container from "./shared/Container";
 import SocialIcons from "./shared/SocialIcons";
 import Image from "next/image";
+import Link from "next/link";
 import { Clock } from "lucide-react";
 import { motion } from "framer-motion";
-import React from "react"; // для использования <React.Fragment>
+import React from "react";
 
 const links = [
   { label: "Home", href: "/" },
@@ -34,15 +35,14 @@ export default function Footer() {
             variants={itemVariants}
             className="flex flex-col items-center xl:items-start"
           >
-            {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-            <a href="/">
+            <Link href="/">
               <Image
                 src="/images/logo.png"
                 alt="Peak Renovations Logo"
                 width={100}
                 height={40}
               />
-            </a>
+            </Link>
             <p className="text-gray-400">Portland, Oregon</p>
             <p className="text-gray-400">Oregon CCB #123456</p>
             <div className="text-sm text-gray-400 mt-4">
@@ -62,16 +62,14 @@ export default function Footer() {
             className="flex items-center space-x-6 text-base"
           >
             {links.map((link) => (
-              <React.Fragment key={link.label}>
-                {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-                <a
-                  href={link.href}
-                  className="group relative text-gray-400 transition-colors text-md xl:text-xl"
-                >
-                  {link.label}
-                  <span className="underline-hover" />
-                </a>
-              </React.Fragment>
+              <Link
+                key={link.label}
+                href={link.href}
+                className="group relative text-gray-400 transition-colors text-md xl:text-xl"
+              >
+                {link.label}
+                <span className="underline-hover" />
+              </Link>
             ))}
           </motion.nav>
 

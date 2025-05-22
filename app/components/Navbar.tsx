@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import clsx from "clsx";
 import Image from "next/image";
+import Link from "next/link";
 import SocialIcons from "./shared/SocialIcons";
 
 export default function Navbar() {
@@ -45,21 +46,20 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [links]);
+  }, []);
 
   return (
     <>
       <header className="fixed top-0 left-0 z-50 w-full shadow-md bg-gray-900 border-b border-yellow-200">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-          <a href="/">
+          <Link href="/">
             <Image
               src="/images/logo.png"
               alt="Peak Renovations Logo"
               width={80}
               height={40}
             />
-          </a>
+          </Link>
 
           <nav className="hidden md:flex items-center space-x-6 text-base">
             {links.map((link) => {
@@ -69,9 +69,8 @@ export default function Navbar() {
                   (activeSection === "/" || activeSection === ""));
 
               return (
-                <a
+                <Link
                   key={link.label}
-                  // eslint-disable-next-line @next/next/no-html-link-for-pages
                   href={link.href}
                   className={clsx(
                     "group relative transition-colors text-md xl:text-xl",
@@ -91,7 +90,7 @@ export default function Navbar() {
                       }
                     )}
                   />
-                </a>
+                </Link>
               );
             })}
           </nav>
@@ -126,9 +125,8 @@ export default function Navbar() {
                 (activeSection === "/" || activeSection === ""));
 
             return (
-              <a
+              <Link
                 key={link.label}
-                // eslint-disable-next-line @next/next/no-html-link-for-pages
                 href={link.href}
                 onClick={() => setIsOpen(false)}
                 className={clsx("group relative transition-colors", {
@@ -146,7 +144,7 @@ export default function Navbar() {
                     }
                   )}
                 />
-              </a>
+              </Link>
             );
           })}
         </nav>
