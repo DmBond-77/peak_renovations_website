@@ -26,7 +26,7 @@ export default function Navbar() {
       for (const link of links) {
         if (link.href.startsWith("#")) {
           const section = document.querySelector(link.href);
-          if (section && section instanceof HTMLElement) {
+          if (section instanceof HTMLElement) {
             const top = section.offsetTop;
             const bottom = top + section.offsetHeight;
             if (scrollPos >= top && scrollPos < bottom) {
@@ -35,17 +35,15 @@ export default function Navbar() {
             }
           }
         } else if (link.href === "/") {
-          if (window.scrollY < 100) {
-            current = "/";
-          }
+          if (window.scrollY < 100) current = "/";
         }
       }
+
       setActiveSection(current);
     };
 
     window.addEventListener("scroll", handleScroll);
     handleScroll();
-
     return () => window.removeEventListener("scroll", handleScroll);
   }, [links]);
 
@@ -53,6 +51,7 @@ export default function Navbar() {
     <>
       <header className="fixed top-0 left-0 z-50 w-full shadow-md bg-gray-900 border-b border-yellow-200">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
           <a href="/">
             <Image
               src="/images/logo.png"
@@ -62,7 +61,6 @@ export default function Navbar() {
             />
           </a>
 
-          {/* Desktop Menu */}
           <nav className="hidden md:flex items-center space-x-6 text-base">
             {links.map((link) => {
               const isActive =
@@ -73,6 +71,7 @@ export default function Navbar() {
               return (
                 <a
                   key={link.label}
+                  // eslint-disable-next-line @next/next/no-html-link-for-pages
                   href={link.href}
                   className={clsx(
                     "group relative transition-colors text-md xl:text-xl",
@@ -99,7 +98,6 @@ export default function Navbar() {
 
           <SocialIcons />
 
-          {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="cursor-pointer md:hidden text-amber-300"
@@ -110,7 +108,7 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* Mobile Menu */}
+      {/* Mobile menu */}
       <div
         className={clsx(
           "fixed inset-0 z-40 flex flex-col items-center justify-center bg-gray-900 text-yellow-300 transition-all duration-300 md:hidden",
@@ -130,6 +128,7 @@ export default function Navbar() {
             return (
               <a
                 key={link.label}
+                // eslint-disable-next-line @next/next/no-html-link-for-pages
                 href={link.href}
                 onClick={() => setIsOpen(false)}
                 className={clsx("group relative transition-colors", {

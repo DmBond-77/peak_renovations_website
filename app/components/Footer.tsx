@@ -5,6 +5,7 @@ import SocialIcons from "./shared/SocialIcons";
 import Image from "next/image";
 import { Clock } from "lucide-react";
 import { motion } from "framer-motion";
+import React from "react"; // для использования <React.Fragment>
 
 const links = [
   { label: "Home", href: "/" },
@@ -33,6 +34,7 @@ export default function Footer() {
             variants={itemVariants}
             className="flex flex-col items-center xl:items-start"
           >
+            {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
             <a href="/">
               <Image
                 src="/images/logo.png"
@@ -60,14 +62,16 @@ export default function Footer() {
             className="flex items-center space-x-6 text-base"
           >
             {links.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="group relative text-gray-400 transition-colors text-md xl:text-xl"
-              >
-                {link.label}
-                <span className="underline-hover" />
-              </a>
+              <React.Fragment key={link.label}>
+                {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+                <a
+                  href={link.href}
+                  className="group relative text-gray-400 transition-colors text-md xl:text-xl"
+                >
+                  {link.label}
+                  <span className="underline-hover" />
+                </a>
+              </React.Fragment>
             ))}
           </motion.nav>
 
