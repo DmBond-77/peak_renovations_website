@@ -37,11 +37,10 @@ const reviews = [
   },
 ];
 
-// Варианты анимации для каждого отзыва
 const cardVariants = {
   hidden: (custom: number) => ({
     opacity: 0,
-    x: custom % 2 === 0 ? -50 : 50, // четные с левой стороны, нечетные - с правой
+    x: custom % 2 === 0 ? -50 : 50,
   }),
   visible: (custom: number) => ({
     opacity: 1,
@@ -66,7 +65,7 @@ export default function Testimonials() {
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {reviews.map((review, i) => (
             <motion.div
-              key={i}
+              key={`${review.name}-${i}`}
               className="bg-white rounded-xl shadow p-6 text-left flex flex-col justify-between"
               custom={i}
               initial="hidden"
@@ -75,13 +74,16 @@ export default function Testimonials() {
               variants={cardVariants}
             >
               <div className="mb-4">
-                <div className="flex gap-1 text-yellow-500 mb-2">
+                <div
+                  className="flex gap-1 text-yellow-500 mb-2"
+                  aria-label={`${review.stars} out of 5 stars`}
+                >
                   {[...Array(review.stars)].map((_, i) => (
                     <Star key={i} size={20} fill="currentColor" />
                   ))}
                 </div>
                 <p className="text-gray-700 italic">
-                  &quot;{review.text}&quot;
+                  &quot;{review.text.replace(/"/g, "&quot;")}&quot;
                 </p>
               </div>
               <p className="mt-4 text-sm font-semibold text-gray-900">
