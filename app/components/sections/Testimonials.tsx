@@ -82,9 +82,11 @@ export default function Testimonials() {
                     <Star key={i} size={20} fill="currentColor" />
                   ))}
                 </div>
-                <p className="text-gray-700 italic">
-                  &quot;{review.text.replace(/"/g, "&quot;")}&quot;
-                </p>
+                <blockquote className="text-gray-700 italic">
+                  {"“"}
+                  {review.text}
+                  {"”"}
+                </blockquote>
               </div>
               <p className="mt-4 text-sm font-semibold text-gray-900">
                 — {review.name}
