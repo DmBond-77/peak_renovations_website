@@ -56,7 +56,7 @@ export default function GallerySection() {
         {/* Gallery grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
           {images.map((src, i) => (
-            <div
+            <motion.div
               key={i}
               onClick={() => {
                 setDirection(1);
@@ -65,6 +65,10 @@ export default function GallerySection() {
               onMouseEnter={() => setHoveredIndex(i)}
               onMouseLeave={() => setHoveredIndex(null)}
               className="relative w-full aspect-[4/3] rounded overflow-hidden shadow cursor-pointer group"
+              initial={{ opacity: 0, x: i % 2 === 0 ? -40 : 40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
             >
               <Image
                 src={src}
@@ -74,7 +78,6 @@ export default function GallerySection() {
                 sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
               />
 
-              {/* Hover "shutter" animation */}
               {hoveredIndex === i && (
                 <motion.div
                   className="absolute top-0 left-0 h-full w-1/3 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none"
@@ -86,7 +89,7 @@ export default function GallerySection() {
                   }}
                 />
               )}
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

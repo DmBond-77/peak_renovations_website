@@ -14,8 +14,8 @@ const sections = [
           We offer a variety of kitchen renovation styles to suit your
           preferences:
         </p>
-        <ul className="list-disc list-inside space-y-2">
-          <li>
+        <ul className="list-disc list-inside space-y-3">
+          <li className="">
             <strong>Open Concept Kitchens:</strong> Create communal living
             spaces by removing walls.
           </li>
@@ -57,11 +57,11 @@ const sections = [
     title: "Bathroom Renovations",
     content: (
       <>
-        <p className="mb-4 font-bold">
+        <p className="mb-4 font-bold text-xl">
           Our bathroom renovation services include:
         </p>
-        <ul className="list-disc list-inside space-y-2">
-          <li>
+        <ul className="list-disc list-inside space-y-3">
+          <li className="">
             <strong>Pet-Friendly Bathrooms:</strong> Add pet washing zones or
             built-in litter boxes.
           </li>
@@ -125,7 +125,7 @@ export default function ServicesTabsAccordion() {
                 key={index}
                 onClick={() => setActiveTab(index)}
                 className={clsx(
-                  "pb-2 text-gray-700 font-bold border-b-2 cursor-pointer text-xl whitespace-nowrap",
+                  "pb-2 text-gray-700 font-bold border-b-2 cursor-pointer text-2xl whitespace-nowrap",
                   activeTab === index
                     ? "border-gray-800 text-gray-900"
                     : "border-transparent hover:text-black"
@@ -160,7 +160,7 @@ export default function ServicesTabsAccordion() {
               <div key={index} className="border rounded overflow-hidden">
                 <button
                   onClick={() => toggleAccordion(index)}
-                  className="w-full flex justify-between items-center px-4 py-3 bg-gray-100 text-gray-800 font-medium cursor-pointer"
+                  className="w-full flex justify-between items-center px-4 py-3 bg-gray-100 text-gray-800  cursor-pointer md:text-7xl text-xl font-bold"
                 >
                   {section.title}
                   {isOpen ? (
