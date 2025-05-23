@@ -8,22 +8,40 @@ export default function SocialIcons({ className }: SocialIconsProps) {
     <div
       className={`flex space-x-3 sm:space-x-3 md:space-x-6 ${className ?? ""}`}
     >
-      <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+      <a
+        href="https://facebook.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Facebook"
+        title="Facebook"
+      >
         <Facebook className="w-6 h-6 text-gray-600 hover:text-blue-600 transition-transform duration-300 hover:scale-120" />
       </a>
-      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-        <Instagram className="w-6 h-6 text-gray-600 hover:text-pink-500  transition-transform duration-300 hover:scale-120" />
+      <a
+        href="https://instagram.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Instagram"
+        title="Instagram"
+      >
+        <Instagram className="w-6 h-6 text-gray-600 hover:text-pink-500 transition-transform duration-300 hover:scale-120" />
       </a>
-      <a href="mailto:info@peakrenovationspdx.com">
-        <Mail className="w-6 h-6 text-gray-600 hover:text-red-500  transition-transform duration-300 hover:scale-120" />
+      <a
+        href="mailto:info@peakrenovationspdx.com"
+        aria-label="Email"
+        title="Email"
+      >
+        <Mail className="w-6 h-6 text-gray-600 hover:text-red-500 transition-transform duration-300 hover:scale-120" />
       </a>
-      <a href="tel:+503-123-4567">
+      <a href="tel:+5031234567" aria-label="Phone" title="Phone">
         <Phone className="w-6 h-6 text-gray-600 hover:text-green-600 transition-transform duration-300 hover:scale-120" />
       </a>
       <a
         href="https://t.me/your_telegram"
         target="_blank"
         rel="noopener noreferrer"
+        aria-label="Telegram"
+        title="Telegram"
       >
         <Send className="w-6 h-6 text-gray-600 hover:text-blue-400 transition-transform duration-300 hover:scale-120" />
       </a>
@@ -31,11 +49,14 @@ export default function SocialIcons({ className }: SocialIconsProps) {
         href="https://wa.me/1234567890"
         target="_blank"
         rel="noopener noreferrer"
+        aria-label="WhatsApp"
+        title="WhatsApp"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 32 32"
           fill="currentColor"
+          aria-hidden="true"
           className="w-6 h-6 text-gray-600 hover:text-green-500 transition-transform hover:scale-120 duration-300"
         >
           <path d="M16 0C7.163 0 0 6.872 0 15.36c0 3.136.96 6.032 2.624 8.456L0 32l8.608-2.784C11.216 30.4 13.552 31 16 31c8.837 0 16-6.872 16-15.36C32 6.872 24.837 0 16 0zm0 28.224c-2.112 0-4.16-.544-5.92-1.568l-.424-.248-5.12 1.648 1.664-4.896-.28-.456c-1.36-2.152-2.08-4.616-2.08-7.2 0-7.104 6.048-12.896 13.488-12.896 7.44 0 13.488 5.792 13.488 12.896 0 7.104-6.048 12.896-13.488 12.896z" />
