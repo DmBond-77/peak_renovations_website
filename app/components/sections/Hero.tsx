@@ -3,6 +3,7 @@
 import "keen-slider/keen-slider.min.css";
 import { useKeenSlider } from "keen-slider/react";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -45,18 +46,28 @@ export default function HeroSlider() {
     <div
       ref={sliderRef}
       className="keen-slider relative h-[80vh] overflow-hidden"
+      aria-label="Promotional slideshow"
     >
       {slides.map((slide, i) => (
-        <div
-          key={i}
-          className="keen-slider__slide relative bg-cover bg-center"
-          style={{ backgroundImage: `url(${slide.image})` }}
-        >
+        <div key={i} className="keen-slider__slide relative h-full w-full">
+          <Image
+            src={slide.image}
+            alt={slide.title}
+            fill
+            className="object-cover"
+            sizes="100vw"
+            priority={i === 0}
+          />
+
+          {/* Затемнение поверх картинки */}
+          <div className="absolute inset-0 bg-black/50 z-0" />
+
+          {/* Текст и кнопка */}
           <AnimatePresence>
             {currentSlide === i && (
               <motion.div
                 key={i}
-                className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center text-white text-center p-6"
+                className="absolute inset-0 z-10 flex flex-col items-center justify-center text-white text-center px-4"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
@@ -71,7 +82,7 @@ export default function HeroSlider() {
                   {slide.title}
                 </motion.h1>
                 <motion.p
-                  className="mb-6 text-lg max-w-xl px-4"
+                  className="mb-6 text-lg max-w-xl"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 }}
@@ -96,10 +107,10 @@ export default function HeroSlider() {
         </div>
       ))}
 
-      {/* Prev/Next buttons */}
+      {/* Навигация */}
       <button
         onClick={() => instanceRef.current?.prev()}
-        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 text-gray-900 p-2 rounded-full hover:bg-white shadow-md hidden sm:flex"
+        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 text-gray-900 p-2 rounded-full hover:bg-white shadow-md hidden sm:flex z-20 cursor-pointer"
         aria-label="Previous slide"
       >
         <ChevronLeft className="w-5 h-5" />
@@ -107,7 +118,7 @@ export default function HeroSlider() {
 
       <button
         onClick={() => instanceRef.current?.next()}
-        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 text-gray-900 p-2 rounded-full hover:bg-white shadow-md hidden sm:flex"
+        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 text-gray-900 p-2 rounded-full hover:bg-white shadow-md hidden sm:flex z-20 cursor-pointer"
         aria-label="Next slide"
       >
         <ChevronRight className="w-5 h-5" />

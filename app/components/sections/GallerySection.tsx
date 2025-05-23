@@ -5,20 +5,10 @@ import Image from "next/image";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const images = [
-  "/images/slider1.jpg",
-  "/images/slider2.jpg",
-  "/images/slider3.jpg",
-  "/images/slider4.jpg",
-  "/images/slider5.jpg",
-  "/images/slider6.jpg",
-  "/images/slider7.jpg",
-  "/images/slider8.jpg",
-  "/images/slider9.jpg",
-  "/images/slider10.jpg",
-  "/images/slider11.jpg",
-  "/images/slider12.jpg",
-];
+const images = Array.from(
+  { length: 12 },
+  (_, i) => `/images/slider${i + 1}.jpg`
+);
 
 export default function GallerySection() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
@@ -56,7 +46,7 @@ export default function GallerySection() {
         {/* Gallery grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
           {images.map((src, i) => (
-            <motion.div
+            <motion.button
               key={i}
               onClick={() => {
                 setDirection(1);
@@ -69,6 +59,7 @@ export default function GallerySection() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, ease: "easeOut" }}
+              aria-label={`Open image ${i + 1} in gallery`}
             >
               <Image
                 src={src}
@@ -77,19 +68,15 @@ export default function GallerySection() {
                 className="object-cover transition-transform duration-300 group-hover:scale-105"
                 sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
               />
-
               {hoveredIndex === i && (
                 <motion.div
                   className="absolute top-0 left-0 h-full w-1/3 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none"
                   initial={{ x: -200 }}
                   animate={{ x: 300 }}
-                  transition={{
-                    duration: 1.2,
-                    ease: "easeInOut",
-                  }}
+                  transition={{ duration: 1.2, ease: "easeInOut" }}
                 />
               )}
-            </motion.div>
+            </motion.button>
           ))}
         </div>
       </div>
@@ -104,8 +91,9 @@ export default function GallerySection() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.6 }}
+            aria-modal="true"
+            role="dialog"
           >
-            {/* Overlay */}
             <motion.div
               className="absolute inset-0 bg-black/80"
               initial={{ opacity: 0 }}
@@ -113,9 +101,9 @@ export default function GallerySection() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.6 }}
               onClick={() => setSelectedIndex(null)}
+              aria-hidden="true"
             />
 
-            {/* Modal content */}
             <motion.div
               className="relative max-w-[90vw] max-h-[80vh] w-full p-4 flex items-center justify-center z-10"
               initial={{ scale: 0.95, opacity: 0 }}
@@ -123,7 +111,6 @@ export default function GallerySection() {
               exit={{ scale: 0.95, opacity: 0 }}
               transition={{ duration: 0.6 }}
             >
-              {/* Close button */}
               <button
                 onClick={() => setSelectedIndex(null)}
                 className="absolute top-2 right-2 text-white hover:text-red-400 z-20 cursor-pointer"
@@ -132,28 +119,20 @@ export default function GallerySection() {
                 <X className="w-8 h-8" />
               </button>
 
-              {/* Prev button */}
               <button
                 onClick={prevImage}
-                className="absolute left-4 text-white hover:text-gray-300 z-20"
+                className="absolute left-4 text-white hover:text-gray-300 z-20 cursor-pointer"
                 aria-label="Previous image"
               >
-                <ChevronLeft className="w-10 h-10 cursor-pointer" />
+                <ChevronLeft className="w-10 h-10" />
               </button>
 
-              {/* Animated image */}
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
                   key={selectedIndex}
-                  initial={{
-                    x: direction === 1 ? 300 : -300,
-                    opacity: 0,
-                  }}
+                  initial={{ x: direction === 1 ? 300 : -300, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
-                  exit={{
-                    x: direction === 1 ? -300 : 300,
-                    opacity: 0,
-                  }}
+                  exit={{ x: direction === 1 ? -300 : 300, opacity: 0 }}
                   transition={{ duration: 0.4 }}
                   className="relative max-w-full max-h-[80vh] w-full aspect-[4/3] rounded-lg overflow-hidden"
                 >
@@ -163,17 +142,17 @@ export default function GallerySection() {
                     fill
                     className="object-contain"
                     sizes="90vw"
+                    priority // показываем сразу
                   />
                 </motion.div>
               </AnimatePresence>
 
-              {/* Next button */}
               <button
                 onClick={nextImage}
-                className="absolute right-4 text-white hover:text-gray-300 z-20"
+                className="absolute right-4 text-white hover:text-gray-300 z-20 cursor-pointer"
                 aria-label="Next image"
               >
-                <ChevronRight className="w-10 h-10 cursor-pointer" />
+                <ChevronRight className="w-10 h-10" />
               </button>
             </motion.div>
           </motion.div>
