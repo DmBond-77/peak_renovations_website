@@ -76,7 +76,6 @@ export default function Testimonials() {
               <div className="mb-4">
                 <div
                   className="flex gap-1 text-yellow-500 mb-2"
-                  role="img"
                   aria-label={`${review.stars} out of 5 stars`}
                 >
                   {[...Array(review.stars)].map((_, i) => (
@@ -84,7 +83,7 @@ export default function Testimonials() {
                       key={i}
                       size={20}
                       fill="currentColor"
-                      aria-hidden="true"
+                      aria-hidden="true" // можно оставить, т.к. сама группа получает aria-label
                     />
                   ))}
                 </div>

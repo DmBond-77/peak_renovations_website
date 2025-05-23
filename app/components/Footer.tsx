@@ -47,11 +47,17 @@ export default function Footer() {
             <p className="text-gray-400">Oregon CCB #123456</p>
             <div className="text-sm text-gray-400 mt-4">
               <div className="flex gap-2 items-center">
-                <Clock className="w-4 h-4 mt-0.5 text-gray-400 xl:block" />
+                <Clock
+                  className="w-4 h-4 mt-0.5 text-gray-400 xl:block"
+                  aria-hidden="true"
+                />
                 <p>Hours: Mon–Fri 9AM–5PM</p>
               </div>
               <div className="flex gap-2 items-center">
-                <Clock className="w-4 h-4 mt-0.5 text-gray-400 xl:block" />
+                <Clock
+                  className="w-4 h-4 mt-0.5 text-gray-400 xl:block"
+                  aria-hidden="true"
+                />
                 <p>Saturday | Sunday Closed</p>
               </div>
             </div>
@@ -66,6 +72,7 @@ export default function Footer() {
                 key={link.label}
                 href={link.href}
                 className="group relative text-gray-400 transition-colors text-md xl:text-xl"
+                aria-label={link.label}
               >
                 {link.label}
                 <span className="underline-hover" />
